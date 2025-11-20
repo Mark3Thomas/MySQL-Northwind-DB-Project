@@ -40,7 +40,9 @@ The database contains the following key tables:
 | `regions`, `territories`, `employee_territories` | Employee and regional mapping |
 
 📄 *All tables, keys, constraints, and indexes were created using the SQL script: `Northwind Database create.sql`.*
-![image](https://github.com/user-attachments/assets/4435981f-0be7-4265-9537-6f8e21e86bdf)
+
+<img width="600" height="520" alt="image" src="https://github.com/user-attachments/assets/d8748eb0-dd49-432a-8b80-c92b7cbfd312" />
+
 
 ---
 
