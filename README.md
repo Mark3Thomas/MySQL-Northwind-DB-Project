@@ -37,7 +37,6 @@ The database contains the following key tables:
 | `employees`          | Employee data including roles and managers             |
 | `categories`         | Product categories (e.g., Beverages, Produce)          |
 | `shippers`           | Companies responsible for shipping orders              |
-| `regions`, `territories`, `employee_territories` | Employee and regional mapping |
 
 📄 *All tables, keys, constraints, and indexes were created using the SQL script: `Northwind Database create.sql`.*
 
