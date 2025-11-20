@@ -83,41 +83,49 @@ This sample dataset allows you to simulate queries found in retail, sales, logis
 select count(*)
 from customers
 where country = "USA";
+
 -- 2.# Write an SQL query to get the top 10 products from the Products table with a Price greater than 20, limiting the result to 10 rows.
 select *
 from products where Price> 20
 order by Price  
 limit 10
+
 -- 3.-- SUBQUERY
 -- find out the name of the products same as product category
 select*
 from products
 where ProductName in (select categoryname from categories);
+
 -- 4.-- ALIASES
 select CustomerID 
 as ID, CustomerName AS CUstomer
 from Customers;
+
 -- 5.-- Retrieve all columns from the "Customers" table where the "Country" is 'USA' and "City" is either 'Portland' or 'Kirkland', ordered by ascending "CustomerName".
 select *
 from customers
 where Country = "USA" and City IN ("PORtland"," KIRKLABN") 
 order by CustomerName asc;
+
 -- 6.-- Retrieve all columns from the Orders table for orders made by customers whose name starts with "A".
 select *
 from orders
 where CustomerID 
 in (select CustomerID from customers where CustomerName like "a%");
+
 -- 7.-- Inner join Supplier of each product
 select products.productname as product, suppliers.suppliername as supplier
 from products
 inner join suppliers
 on products.supplierid = suppliers.supplierid;
+
 -- 8.-- Supplier Tokyo Traders only
 select products.productname as product, suppliers.suppliername as supplier
 from products
 inner join suppliers
 on products.supplierid = suppliers.supplierid
 where suppliername = "Tokyo Traders";
+
 -- 9.-- write sql query to find name of the products whivch has never been ordered
 -- if product never been ordered , it will not have an orderid
 SELECT *
@@ -125,11 +133,13 @@ FROM products as p
 LEFT JOIN Order_details as od 
 ON p.productid = od.productid
 where od.orderid is null;
+
 -- 10.-- calculate the price*qty, and name it as Sales
 select p.productname, p.price, od.quantity, od.quantity*P.price as sales
 from products as p
 inner join order_details as od
 on p.ProductID = od.ProductID;
+
 -- 11.-- adding order by sales descendant
 select  p.productname, sum(od.quantity * p.price) as sales
 from products as p
@@ -137,6 +147,7 @@ inner join order_details as od
 on p.productid = od.productid
 group by p.productname
 order by sales desc;
+
 -- 12.-- Write a query to list each employee and the number of orders they have handled.
 select e.employeeid, e.firstname,e.lastname, count(o.orderid) as ordercount 
 from employees as e
