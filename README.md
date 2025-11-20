@@ -139,46 +139,13 @@ on e.employeeid = o.employeeid
 group by firstname, lastname;
 
 
-
-
-
-
--- 7.-- Inner join Supplier of each product
-select products.productname as product, suppliers.suppliername as supplier
-from products
-inner join suppliers
-on products.supplierid = suppliers.supplierid;
-
-
-
-
-
-
-
-
-
--- 8.-- Supplier Tokyo Traders only
-select products.productname as product, suppliers.suppliername as supplier
-from products
-inner join suppliers
-on products.supplierid = suppliers.supplierid
-where suppliername = "Tokyo Traders";
-
--- 9.-- write sql query to find name of the products whivch has never been ordered
--- if product never been ordered , it will not have an orderid
-SELECT *
-FROM products as p
-LEFT JOIN Order_details as od 
-ON p.productid = od.productid
-where od.orderid is null;
-
--- 10.-- calculate the price*qty, and name it as Sales
+/*Write a query to calculate the price*qty, and name it as Sales*/
 select p.productname, p.price, od.quantity, od.quantity*P.price as sales
 from products as p
 inner join order_details as od
 on p.ProductID = od.ProductID;
 
--- 11.-- adding order by sales descendant
+/*Write a query to total orders by sales display in desending order*/
 select  p.productname, sum(od.quantity * p.price) as sales
 from products as p
 inner join order_details as od
@@ -186,10 +153,4 @@ on p.productid = od.productid
 group by p.productname
 order by sales desc;
 
--- 12.-- Write a query to list each employee and the number of orders they have handled.
-select e.employeeid, e.firstname,e.lastname, count(o.orderid) as ordercount 
-from employees as e
-inner join orders as o
-on e.employeeid = o.employeeid
-group by e.employeeid, e.firstname, e.lastname
-order by ordercount ; 
+
