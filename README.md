@@ -79,45 +79,83 @@ This sample dataset allows you to simulate queries found in retail, sales, logis
 ## 💡 7. Sample SQL Queries
 
 ```sql
--- 1.-- write sql query to return customers from USA
-select count(*)
-from customers
-where country = "USA";
 
--- 2.# Write an SQL query to get the top 10 products from the Products table with a Price greater than 20, limiting the result to 10 rows.
-select *
-from products where Price> 20
-order by Price  
-limit 10
 
--- 3.-- SUBQUERY
--- find out the name of the products same as product category
-select*
-from products
-where ProductName in (select categoryname from categories);
+/*Write a SQL query to retrieve all columns from the Customers table.*/
+Select *
+from customers;
 
--- 4.-- ALIASES
-select CustomerID 
-as ID, CustomerName AS CUstomer
-from Customers;
+/*Write a SQL query to retrieve all columns from the Customers table where the Country is either 'USA' or 'UK'.*/
+select *  
+from customers  
+where Country  
+in("usa","uk"); 
 
--- 5.-- Retrieve all columns from the "Customers" table where the "Country" is 'USA' and "City" is either 'Portland' or 'Kirkland', ordered by ascending "CustomerName".
-select *
-from customers
-where Country = "USA" and City IN ("PORtland"," KIRKLABN") 
-order by CustomerName asc;
+/*Write a query to list the employees who handled each order, along with the order date.*/
+select firstname,lastname,orders.orderid,orders.orderdate 
+from employees 
+inner join orders 
+on orders.employeeid = employees.employeeid;
 
--- 6.-- Retrieve all columns from the Orders table for orders made by customers whose name starts with "A".
-select *
-from orders
-where CustomerID 
-in (select CustomerID from customers where CustomerName like "a%");
+/*Write a query to find all orders shipped by a specific shipper (e.g., ShipperName = 'United Package').*/
+SELECT * FROM orders 
+INNER JOIN shippers 
+ON orders.shipperid = shippers.shipperid 
+WHERE ShipperName = 'United Package';
+
+/* alisaing*/
+SELECT c.CustomerName, o.OrderID
+FROM Customers as c -- rename as c
+LEFT JOIN Orders as o -- rename as o
+ON c.CustomerID = o.CustomerID
+where orderid is null;
+
+/*The following SQL statement lists the number of orders sent by each shipper:*/
+SELECT Shippers.ShipperName, COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY ShipperName;
+
+/*Write a query to list each product category and the total quantity of products sold in that category.*/
+select categoryname, sum(quantity) as totalquanity
+from categories as c
+join products as p
+on c.categoryid = p.categoryid
+join order_details as od
+on od.productid = p.productid
+group by categoryname;
+
+/*Write a SQL query to retrieve all columns from the Customers table where the Country is 'USA' and City
+ is either 'Portland' or 'Kirkland', ordered by ascending CustomerName.*/
+select *  
+from customers  
+where Country = "usa" and City in( "portland","kirkland")  
+order by CustomerName ; 
+
+ /*Write a query to list each employee and the number of orders they have handled.*/
+select firstname, lastname, count(orderid) as totalorders
+from employees as e
+join orders as o
+on e.employeeid = o.employeeid
+group by firstname, lastname;
+
+
+
+
+
 
 -- 7.-- Inner join Supplier of each product
 select products.productname as product, suppliers.suppliername as supplier
 from products
 inner join suppliers
 on products.supplierid = suppliers.supplierid;
+
+
+
+
+
+
+
+
 
 -- 8.-- Supplier Tokyo Traders only
 select products.productname as product, suppliers.suppliername as supplier
